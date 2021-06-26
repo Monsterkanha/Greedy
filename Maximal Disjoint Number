@@ -1,0 +1,17 @@
+// Sort on the basis of their end time and greedily look if
+// next event is overlapping it is always better to skip that, That skip will never cause harm to us.
+
+int ans = 1;
+vector<pair<int, int>> time;
+for(int i = 0; i < n ; i++){
+    time.push_back({start[i] , end[i]});
+}
+sort(time.begin() , time.end() ,sortbysec);
+int r1 = time[0].second;
+for(int i = 1; i<n ; i++){
+    int l2 = time[i].first , r2 = time[i].second;
+    if(r1 < l2){
+        ans++;
+        r1 = r2;
+    }
+}
