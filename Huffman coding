@@ -1,0 +1,62 @@
+// The one with lesser frequency will have lesser depth. 
+// When we go  left put 0 and right put 1;
+
+// Merge two smallest into one Now since they will be first paired; They will again get chance to pair. and this way by increasing depth to larger one their depth reduced(comp)
+
+struct Node{
+    char id;
+    int freq;
+    Node *left ,*right;
+    Node(int f, char l){
+        id = l;
+        freq = f;
+        left = right = NULL;
+    }
+};
+struct compare{
+    bool operator()(Node* l,Node* r){
+        return(l->freq > r->freq);
+    }
+};
+vector<string> res;
+
+
+void ans(Node* root, string s){
+    if(!root){
+        return;
+    }
+    if(root->id != '#' ){
+        // cout<<root->id<<" : "<<s<<endl;
+        res.push_back(s);
+    }
+    ans(root->left, s + "0");
+    ans(root->right,s + "1");
+}
+
+class Solution
+{
+	public:
+		vector<string> huffmanCodes(string S,vector<int> f,int N){
+		    res.clear();
+		    priority_queue<Node*, vector<Node*> , compare> q;
+		    for(int i = 0 ; i< N ; i++){
+		        Node* temp = new Node(f[i] , S[i]);
+		        q.push(temp);
+		    }
+		    while(q.size() > 1){
+		        Node* temp1 = q.top();
+		        q.pop();
+		        Node* temp2 = q.top();
+		        q.pop();
+		       
+		        Node* tnew = new Node(temp1->freq + temp2->freq ,'#' );
+		        tnew->left = temp1;
+		        tnew->right = temp2;
+		        q.push(tnew);
+		        
+		    }
+		    ans(q.top(), "");
+		    return res;
+		}
+		
+};
