@@ -1,0 +1,27 @@
+//This is similar to the one where we have given start and end time and we have to find maximum number of overlapping sequence.
+
+// Create two array arrival and departure.
+//and sort them individually. and do the following operation. If previous departure has not done then ans++, and if done then ans--;
+
+sort(arr, arr + n);
+sort(dep, dep + n);
+int plat_req = 1, res = 1;
+// res is the maximum answer.
+// plat_req is the platform at any instance.
+int i = 1 , j = 0;
+while(i < n && j < n){
+    if(arr[i] <= dep[j]){
+    
+    // Prev has not departed and hence for current we need one platform. of previous 
+        plat_req++;
+        i++;
+    }
+    else{
+        plat_req--;
+        // We are decreasing to make it like base condition where  plat_req is the platform there with fully occupied.
+        j++;
+    }
+    res = max(plat_req, res);
+}
+return res;
+
