@@ -1,0 +1,11 @@
+int s,n , m;
+cin>>s>>n>>m;
+// if s > 6 then we have to survive on sunday also. means total required is 7*m and 
+// We can max buy 6*n;
+if(s > 6 && (6*n < 7*m) || n < m){
+    cout<<"No"<<nl;
+}
+else{
+    cout<<"Yes"<<nl;
+    cout<<(s*m + n-1)/n<<nl;
+}
