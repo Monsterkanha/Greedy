@@ -1,0 +1,56 @@
+Problem :- 
+
+The game is simple. You initially have ‘H’ amount of health and ‘A’ amount of armor. At any instant you can live in any of the three places - fire, water and air. After every unit time, you have to change your place of living. For example if you are currently living at fire, you can either step into water or air.
+If you step into air, your health increases by 3 and your armor increases by 2
+If you step into water, your health decreases by 5 and your armor decreases by 10
+If you step into fire, your health decreases by 20 and your armor increases by 5
+If your health or armor becomes <=0, you will die instantly
+
+Find the maximum time you can survive.
+
+Solution :- 
+
+Here air is best place to reside. 
+so at every odd we will survive at air because of alternate turn.
+Now, think greedily, if we jump to fire then our armor will increase, but do we really need that? 
+We would that when we are short of armor coz it is decreasing health by 20;
+So priority 
+air always - > either fire or water;
+
+Whenever we can enter in water we will always do that, 
+
+if(h > 5 && armour > 10){
+Now next step will always be air. 
+So directly add part here.
+
+}
+
+
+
+
+
+int h, a;
+cin>>h>>a;
+if(h == 0 || a == 0){
+    cout<<0<<nl;
+    return;
+}
+int t = 1;
+h = h + 3;
+a = a +2;
+while(true){
+    if(h > 5 && a > 10){
+        h = h - 2;
+        a = a - 8;
+        t += 2;
+    }
+    else if(h > 20 && a <= 10){
+        h = h - 20 + 3;
+        a = a + 5 + 2;
+        t += 2;
+    }
+    else{
+        cout<<t<<nl;
+        return;
+    }
+}
