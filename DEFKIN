@@ -1,0 +1,34 @@
+Given w, h as width and height of the playing field, and the coordinates of the towers as (x1,y1) .. (xN,yN),
+split the coordinates into two lists x1..xN, y1..yN, sort both of those coordinate lists.
+
+Then calculate the empty spaces, e.g. dx[] = { x1, x2-x1, ..., xN - xN-1, (w + 1) - xN }.
+Do the same for the y coordinates: dy[] = { y1, y2-y1, ..., yN - yN-1, (h + 1) - yN }.
+Multiply max(dx)-1 by max(dy)-1 and you should have the largest uncovered rectangle.
+You have to decrement the delta values by one because the line covered by the higher coordinate tower is included in it, but it is not uncovered.
+
+
+int w, h , n;
+    cin>>w>>h>>n;
+    ll ans = 0;
+    if(n == 0){
+        cout<<w*(ll)h<<nl;
+        return ;
+    }
+    VI x(n) , y(n);
+    rep(i , 0 , n){
+        int a, b;
+        cin>>a>>b;
+        x[i] = a;
+        y[i] = b;
+    }
+    sort(all(x));
+    sort(all(y));
+    int dx = x[0] , dy = y[0];
+    for(int i = 0 ; i < n -1; i++){
+        dx = max(dx , x[i+1]-x[i]);
+        dy = max(dy , y[i+1]-y[i]);
+    }
+    dx = max(dx , w+1- x[n-1]);
+    dy = max(dy , h+1- y[n-1]);
+
+    cout<<(dx-1)*(ll)(dy-1)<<nl;
