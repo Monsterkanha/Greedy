@@ -1,0 +1,27 @@
+priority_queue<long long, vector<long long> , greater<long long>> pq;
+long long sum = 0;
+for(int i = 0; i < n ; i++){
+    pq.push(a[i]);
+    sum += a[i];
+}
+for(int i = 0 ; i < k ; i++){
+    int curr = pq.top();
+    pq.pop();
+
+    curr = -curr;
+    sum += (2*curr);
+    pq.push(curr);
+}
+return sum;
+
+
+// Key idea :- We will always change sign of smallest element and this is optimal.
+
+suppose this is sorted.
+a1, a2,a3, a4, a5 ..... an;
+and we decided to change sign of bigger then it will affect our answer more.
+suppose a1 is negative. Then changing its sign will lead it to plus and our sum will increase
+
+if a1 is positive then changing its sign will decrease our sum least all other will decrease it more.
+
+so it is optimal to change sign of least.
