@@ -1,0 +1,41 @@
+// Intuition :- 
+// We will first cut with the highest value edge. Because after cutting number of pieces will always gonna increase.
+// So,  Since we have to use all the edge to break it into 1*1 square. So it is greedy approach to free highest value edge first.
+
+// So if we cut horizontally then No. of vertical pieces to be cut will increase. 
+// And same true for vertically.
+
+
+sort(all(x), greater<>()); // these are edge value which can cut vertically
+sort(all(y), greater<>()); // Horizontal
+
+// hz, and vr to maintain count of total pieces need to be cut.
+
+// for eg
+if we want ot cut from marked then it require total 3 time cut since total vertical to be cut are 3; 
+_________^___
+_____________
+_____________
+
+int i = 0 , j = 0 , hnztl = 1, vrtl = 1;
+int ans = 0;
+while(i < m && j < n){
+    if(x[i] >= y[j]){
+        ans += (vrtl*x[i]);
+        i++;
+        hnztl++;
+    }
+    else{
+        ans += (hnztl*y[j]);
+        j++;
+        vrtl++;
+    }
+}
+while(i < m){
+    ans += (vrtl*x[i]);
+    i++;
+}
+while(j < n){
+    ans += y[j]*hnztl;
+    j++;
+}
