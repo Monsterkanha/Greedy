@@ -1,0 +1,39 @@
+
+// cnt will contain how many can reach to their destination,
+// Catch is this if a chicken is unable to reach then it can't be able to reach. 
+// We will swap only to clear the way for eligible.
+// Here cantreach will slow down the speed, so we have to jump their. that's why they will increase the swap.
+
+
+
+int n,k;
+ll b,t;
+cin>>n>>k>>b>>t;
+VI x(n) , v(n);
+rep(i , 0 , n)  cin>>x[i];
+rep(i , 0 , n)  cin>>v[i];
+
+
+
+// Reverse traversing is ideal in such cases when we have to deal right to left.
+int swap = 0 , cnt = 0, cantreach = 0;
+for(int i = n-1 ; i>= 0 ; i--){
+    ll dist = b - x[i];
+    if(t*v[i] >= dist){
+        cnt++;
+        if(cantreach >0){ 
+            swap = swap + cantreach;
+        }
+    }
+    else{
+        cantreach++;
+    }
+
+    if(cnt == k){
+        break;
+    }
+}
+if(cnt >= k)
+    cout<<swap<<nl;
+else
+    cout<<"IMPOSSIBLE"<<nl;
