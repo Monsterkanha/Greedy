@@ -1,0 +1,96 @@
+Intuition :- every negative will try to fulfill demands from left to right.
+
+
+proof : 
+
+
+      1 unit        1 unit                     x unit
+ +ve  -------  -ve -------- +ve ----------------------------- -ve           
+ a              -d            d                                -a
+ 
+ below are their capicity
+ 
+ 
+ Now, if 1st negative fulfil from left to write.
+ 
+ Then 
+ d + (a - d)*(x+2)  + d*x
+ 
+ d + a*(x+2) - d(x+2) + dx = a*(x+2) + d -2d  better than below condition.
+ 
+ if 1st fulfil its right hand side.
+ 
+ a*(x+2) + d;
+ 
+ In other words, greedy overlaps only when necessary, and if not, it benefits from 2 times the overlapping distance.
+ 
+ 
+Queue method. 
+ 
+VI arr(n) , pos, neg;
+rep(i , 0 , n){
+    cin>>arr[i];
+    if(arr[i] < 0)   neg.PB(i);
+    else    pos.PB(i);
+}
+
+
+int i = 0 , j = 0;
+ll ans = 0;
+while(i < neg.size() && j < pos.size()){
+    if(abs(arr[neg[i]]) <= arr[pos[j]]){
+
+        ans += abs(pos[j] - neg[i])*abs(arr[neg[i]]);
+        arr[pos[j]] += arr[neg[i]];
+        // arr[neg[i]] = 0;
+        i++;
+    }
+    else{
+        ans += abs(pos[j] - neg[i])*arr[pos[j]];
+        arr[neg[i]] += arr[pos[j]];
+        // arr[pos[j]] = 0;
+        j++;
+    }
+    // debug(arr);
+}
+cout<<ans<<nl;
+
+
+
+
+
+
+Another method:-
+ // since every element wants to be zero so we can transfer the content of current to next.
+ 
+ eg:- 
+ 
+ 5 -4 1 -3 1 
+ 
+ Now, 5 will transfer it content to -4, and tell you have to deal with it.
+ and increase the work by abs(prev) 
+ Either -4 sell him or transfer whole content to next. and so on
+ 
+ Now, array become :
+ 
+ i = 1,         5 1 1 -3 1       ans = 5;
+ i = 2,         5 1 2 -3 1       ans = 5 + arr[1] = 6;
+ i = 3,         5 1 2  -1 1      ans = 8;
+ i =4,          5 1 2  -1 0       ans = 8 + abs(arr[i-1]) = 9; 
+ and last will become 0. and we will get our answer.
+
+int n;
+while(true){
+    cin>>n;
+    if(n == 0)  break;
+    VI arr(n);
+    rep(i , 0 , n ){
+        cin>>arr[i];
+    }
+    ll ans = 0;
+    for(int i = 1; i < n ; i++){  
+        arr[i] += arr[i-1];          
+        ans += abs(arr[i-1]);
+    }
+    cout<<ans<<nl;
+}
