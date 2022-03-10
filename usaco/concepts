@@ -1,0 +1,10 @@
+https://usaco.guide/CPH.pdf#page=67
+
+1. Scheduling maximum number of tasks can be performed :- 
+sort according to the ending time.
+
+
+2. tasks and deadline sort according to the duration.
+
+3. |a1 − x| +|a2 − x| +··· +|an − x| minimize then choose the x = median of array.
+if c = 2 square of each term then choose average. 
