@@ -1,0 +1,50 @@
+Here, we will assign each room to the leftmost eligible candidate? how to achieve this ?
+Here we will keep two pointer and then 
+
+We can use a greedy approach to solve this problem. First, sort the applicants
+and apartments. We can keep two pointers $i$ and $j$ (initialized to 0),
+which keep track of the current index of the applicant and apartment we are
+looking at respectively. Then, while there are more applicants and apartments to
+look through, we repeatedly run the following check:
+
+If |{applicants}[i] - {apartments}[j]| <= k, we have found a
+suitable apartment for the current applicant. Thus, we increment $i$, $j$, and
+our answer.
+Otherwise, $\texttt{apartments}[j]$ is either too big or too small for
+$\texttt{applicants}[i]$. We can increment $i$ or $j$ accordingly.
+
+
+
+
+#include <bits/stdc++.h>
+using namespace std;
+#define f first
+#define s second
+#define pii pair<int,int>
+
+int32_t main () {
+	// freopen("input.in", "r", stdin);
+	// freopen("filout.out", "w", stdout);
+	ios_base::sync_with_stdio(0);
+    cin.tie(0);
+	int n, m, k;
+	cin>>n>>m>>k;
+	vector<int> des(n) , apar(m);
+	for(int i= 0;i < n; i++) cin>>des[i];
+	for(int i= 0;i < m; i++) cin>>apar[i];
+
+	sort(des.begin(), des.end());
+	sort(apar.begin(), apar.end());
+	int i = 0, j = 0 ,ans = 0;
+	while(i < n && j < m){
+		if(des[i] < apar[j]-k) i++;   // room this ith person can't get the room.
+		else if(des[i] -k > apar[j]) j++; // this room can't be allocate to any person. 
+		else{
+			i++;
+			j++;
+			ans++;
+		}
+	}
+	cout<<ans<<"\n";
+
+}
