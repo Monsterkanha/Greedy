@@ -1,0 +1,24 @@
+Instead of thinking this way try to reverse the process. 
+y -> x here operations are y = y + 1, or y = y/2
+Now, 
+if y < x then only way keep adding 1.
+if y > x then reduce it .
+
+now if y if do y + 1 and again +1 and then do /2 to reduce but this will give me 3 steps.
+whereas if I had done y/2 and then +1 then 2 operations.
+
+So, it will always be helpful to first divide and then increment so when to divide, we can only divide when y is eveb, so if odd we simply do +1,
+
+class Solution {
+public:
+    int brokenCalc(int a, int b) {
+        int res = 0;
+        while(b > a){
+            if(b % 2) b = (b + 1);
+            else b = b/2;
+            res++;
+        }
+        res += a - b;
+        return res;
+    }
+};
