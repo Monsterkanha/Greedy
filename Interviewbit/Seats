@@ -1,0 +1,31 @@
+Here, we want to make people consecutive with minimum number of jumps.
+
+so answer for optimal is the median. so first we store all the person pos. Then the middle one is their median now start from that 
+median we would like to arrange people such that on going left we decrease position by 1.
+
+
+Median is sort them in asceding and the middle one is their median position. 
+
+
+int Solution::seats(string A) {
+    int n = A.size(), tot = 0, cnt = 0;
+    const int mod = 10000003;
+    vector<int> pos;
+    for(int i = 0; i < n; i++){
+        if(A[i] == 'x'){
+            pos.push_back(i);
+        }
+    }
+    n = pos.size();
+    if(n == 0) return 0;
+    int md = pos[n/2];
+    
+    for(int i = n/2-1, k = md - 1; i >= 0; --i, --k){
+        tot = (tot + k - pos[i])%mod; 
+    }
+    for(int i = n/2+1, k = md + 1; i < n; ++i, ++k){
+         tot = (tot +pos[i] - k)%mod; 
+    }
+    return tot%mod;
+    
+}
