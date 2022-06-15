@@ -1,0 +1,22 @@
+sort mice and holes.
+
+if i1 < i2 two mice..... and
+j1 < j2 two holes.
+max
+|i1 - j1| , |i2 - j2|  <= |i1-j2| , |i2-j1|
+
+so better to place in order.
+
+
+int Solution::mice(vector<int> &A, vector<int> &B) {
+    int n = A.size();
+    sort(A.begin(), A.end());
+    sort(B.begin(), B.end());
+    
+    int i = 0, ans = 0;
+    while(i < n){
+        ans = max(ans,abs(A[i] - B[i]));
+        i++;
+    }
+    return ans;
+}
