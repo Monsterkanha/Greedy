@@ -13,4 +13,5 @@ https://usaco.guide/CPH.pdf#page=67
 Here, suppose you have queue which has n element and a variable that tells us the minimum distance so far
 Now, if the current element fits in then okay other wise we have to remove the one that costs us the maximum.
 
-
+# Meeting room required. 
+add start time by +1 and end by -1 and the maximum sum will be the maximum number of rooms required.
