@@ -25,8 +25,8 @@ public:
             pq.push(a[i][0]);
             t += a[i][0];
             
-            if(t > a[i][1]){
-                t -= pq.top();
+            if(t > a[i][1]){   // either current task gets fit otherwise had to pop the maximum duration time.
+                t -= pq.top();   // greedy action remove the task which took the longest time.
                 pq.pop();
             }
         }
