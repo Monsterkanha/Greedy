@@ -1,0 +1,35 @@
+Here, duration and deadline given, maximum number of courses we can complete.
+
+Here, 1st sort according to deadline.
+maintain a priority_queue that contains the durations of the courses.
+
+Suppose we have the queue, now new element either it fits so our total courses increases.
+Otherwise, our courses remains same and greedily we want to remove the course that took us most time.
+
+maintain a t variable that will have the total time and if current course deadline is more then remove the most timed course.
+
+class Solution {
+public:
+    int scheduleCourse(vector<vector<int>>& a) {
+        int n = a.size(), t = 0;
+        if(n <= 0) return 0;
+        
+        auto cmp = [&](const vector<int>& x, const vector<int>& y){
+            if(x[1] == y[1]) return x[0] < y[0];
+            return x[1] < y[1];  
+        };
+        sort(a.begin(), a.end(), cmp);
+        priority_queue<int> pq;
+        
+        for(int i= 0; i < n; i++){
+            pq.push(a[i][0]);
+            t += a[i][0];
+            
+            if(t > a[i][1]){
+                t -= pq.top();
+                pq.pop();
+            }
+        }
+        return (int)pq.size();
+    }
+};
