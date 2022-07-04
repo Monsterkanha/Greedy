@@ -1,0 +1,28 @@
+Here, greedy approach is this if we sort people according to tallest. 
+suppose take the group tallest one now they are at there original place
+
+eg. 
+7,0   7,1   7,2 
+
+now suppose second group is 6,1   6,2
+
+so 1 is there actual position since we know they will not gonna affect taller people so they will insert according to them.
+
+vector<int> Solution::order(vector<int> &A, vector<int> &B) {
+    int n = A.size();
+    vector<pair<int,int>> arr;
+    for(int i = 0; i < n; i++){
+        arr.push_back({A[i], B[i]});
+    }
+    auto cmp = [&](const pair<int,int>& x, const pair<int,int>& y){
+        if(x.first == y.first) return x.second < y.second;
+        return  x.first > y.first;
+    };
+    sort(arr.begin(), arr.end(), cmp);
+    
+    vector<int> ans;
+    for(auto &x: arr){
+        ans.insert(ans.begin() + x.second , x.first);
+    }
+    return ans;
+}
