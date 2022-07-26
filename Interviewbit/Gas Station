@@ -1,0 +1,23 @@
+Here, Thought is if sum of fuels >= sum of req then always there exist a solution
+We, just need to find the index where you get maximum surplus..
+
+So, like kadane start from 0th index and think if this could be your start point if so then 
+add the amount you get.
+If this amount is negative then you can't start from this index you have to choose next index.
+
+(Thought :- If A can't reach B then No intermediate can Reach to B) if B is first unreachable station.
+
+Now, add that negative to your gas required some other future index will get surplus that will cover this sum.
+
+int Solution::canCompleteCircuit(const vector<int> &A, const vector<int> &B) {
+    int n = A.size(),st = 0, gasReq = 0, curr = 0;
+    for(int i = 0; i < n; i++){
+        curr += A[i] - B[i];
+        if(curr < 0){
+            gasReq += curr;
+            st = i + 1;
+            curr = 0;
+        }
+    }
+    return (gasReq + curr >= 0)?st:-1;
+}
